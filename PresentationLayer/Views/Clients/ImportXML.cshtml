@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Import Clients from XML";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="ImportXml" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="xmlFile">Select XML File</label>
+        <input type="file" class="form-control-file" id="xmlFile" name="xmlFile" accept=".xml" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Import</button>
+</form>
+
+<div asp-validation-summary="All" class="text-danger"></div>

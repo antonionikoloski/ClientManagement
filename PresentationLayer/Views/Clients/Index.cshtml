@@ -1,0 +1,60 @@
+﻿@model IEnumerable<PresentationLayer.Models.ClientViewModel>
+
+<h2>Clients</h2>
+
+<form asp-action="Index" method="get">
+    <div class="form-row">
+        <div class="col">
+            <input type="text" class="form-control" name="clientIdFilter" placeholder="Filter by Client ID" value="@ViewData["ClientIdFilter"]" />
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" name="nameFilter" placeholder="Filter by Name" value="@ViewData["NameFilter"]" />
+        </div>
+        <div class="col">
+            <input type="date" class="form-control" name="birthDateFilter" placeholder="Filter by Birth Date" value="@ViewData["BirthDateFilter"]" />
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" name="addressFilter" placeholder="Filter by Address" value="@ViewData["AddressFilter"]" />
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>BirthDate</th>
+            <th>Addresses</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var client in Model)
+        {
+            <tr>
+                <td>@client.ClientId</td>
+                <td>@client.Name</td>
+                <td>@client.BirthDate.ToShortDateString()</td>
+                <td>
+                    <ul>
+                        @if (client.Addresses != null && client.Addresses.Any())
+                        {
+                            foreach (var address in client.Addresses)
+                            {
+                                <li>@address.Type: @address.AddressDetail</li>
+                            }
+                        }
+                        else
+                        {
+                            <li>No addresses available</li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
